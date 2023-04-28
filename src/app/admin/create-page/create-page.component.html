@@ -1,0 +1,54 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h1>Создание нового поста</h1>
+  <div
+    [ngClass]=
+      "{invalid:form.get('title')!.touched && form.get('title')!.invalid }"
+    class="form-control">
+    <label for="title">Заголовок:</label>
+    <input id="title" type="text"  formControlName="title">
+    <div
+      *ngIf="form.get('title')!.touched && form.get('title')!.invalid"
+      class="validation">
+      <small *ngIf="form.get('title')!.errors!['required']">
+        Поле заголовок обязательно
+      </small>
+    </div>
+  </div>
+
+  <div>
+    <label>Текст:</label>
+    <quill-editor formControlName="text"></quill-editor>
+
+
+    <div
+      *ngIf="form.get('text')!.touched && form.get('text')!.invalid"
+      class="validation">
+      <small *ngIf="form.get('text')!.errors!['required']">
+        Поле текст обязательно
+      </small>
+    </div>
+  </div>
+
+
+
+  <div
+    [ngClass]=
+      "{invalid:form.get('author')!.touched && form.get('author')!.invalid }"
+    class="form-control">
+    <label for="author">Автор:</label>
+    <input id="author" type="text" formControlName="author">
+    <div
+      *ngIf="form.get('author')!.touched && form.get('author')!.invalid"
+      class="validation">
+      <small *ngIf="form.get('author')!.errors!['required']">
+        Поле автор обязательно
+      </small>
+    </div>
+  </div>
+
+  <button
+    class="btn btn-block btn-dark"
+    [disabled]="form.invalid || submitted"
+    type="submit">Создать пост</button>
+
+</form>

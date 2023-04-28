@@ -1,0 +1,35 @@
+<div *ngIf="form; else loading">
+  <form
+    (ngSubmit)="submit()"
+    [formGroup]="form">
+    <div
+      [ngClass]=
+        "{invalid:form.get('title')!.touched && form.get('title')!.invalid }"
+      class="form-control">
+      <label for="title">Заголовок:</label>
+      <input id="title" type="text"  formControlName="title">
+      <div
+        *ngIf="form.get('title')!.touched && form.get('title')!.invalid"
+        class="validation">
+        <small *ngIf="form.get('title')!.errors!['required']">
+          Поле заголовок обязательно
+        </small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <quill-editor formControlName="text"></quill-editor>
+    </div>
+    <button class="btn badge-primary"
+            type="submit"
+            [disabled]="form.invalid || submitted"
+    >
+      Save
+    </button>
+
+  </form>
+</div>
+
+<ng-template #loading>
+  <p class="text-center">Loading...</p>
+</ng-template>
